@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Image,
-  SafeAreaView,
+  SafeAreaView, ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 
-import axios from 'axios';
+import axios from "axios";
 
-function DetailScreen({route}) {
+function DetailScreen({ route }) {
   const [movie, setMovie] = useState(null);
   const imdbID = route.params.paramKey;
-  const url = 'https://www.omdbapi.com/?i=' + imdbID +'&apikey=263d22d8';
+  const url = "https://www.omdbapi.com/?i=" + imdbID + "&apikey=263d22d8";
   useEffect(() => {
     axios
       .get(url)
@@ -22,61 +22,67 @@ function DetailScreen({route}) {
       })
       .catch(error => {
         console.log(error);
-      } )
-  }, [] );
+      });
+  }, []);
 
-    return (
+  return (
 
-    <SafeAreaView style={styles.container} >
-        {movie &&
-            <View >
-                <Text style={styles.TextArea}>Title : {movie.Title}</Text>
-                <Text style={styles.TextArea}>Released Date : {movie.Year}</Text>
-                <Text style={styles.TextArea}>Genre : {movie.Type}</Text>
-                <Text style={styles.TextArea}>Actors : {movie.Actors}</Text>
-                <Text style={styles.TextArea}>Country : {movie.Country}</Text>
-                <Text style={styles.TextArea}>Plot : {movie.Plot}</Text>
-                <Text style={styles.TextArea}>Awards : {movie.Awards}</Text>
-                <Text style={styles.TextArea}>Imdb Rating : {movie.imdbRating}</Text>
-                <Image style={styles.SmallImage} source={{uri: movie.Poster}} />
+    <View style={styles.container}>
 
-            </View>  }
-    </SafeAreaView>
+      {movie &&
+        <SafeAreaView>
+          <ScrollView>
+            <View style={{
+              width:"100%",
+              flex:1,
+              flexDirection:"row",
+              justifyContent: 'center'
+            }}>
+              <Image style={styles.smallImage} source={{ uri: movie.Poster }} />
+            </View>
+            <View style={{ padding: 12 }}>
+              <ContentItem title="Title" content={movie.Title}/>
+              <ContentItem title="Released Date" content={movie.Year}/>
+              <ContentItem title="Genre" content={movie.Type}/>
+              <ContentItem title="Actors" content={movie.Actors}/>
+              <ContentItem title="Country" content={movie.Country}/>
+              <ContentItem title="Plot" content={movie.Plot}/>
+              <ContentItem title="Awards" content={movie.Awards}/>
+              <ContentItem title="Imdb Rating" content={movie.imdbRating}/>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      }
+    </View>
 
-    );
+  );
 
-  }
+}
 
+const ContentItem = ({title, content})=> {
+  return  <View style={{ flexDirection: "column", paddingBottom: 16 }}>
+    <Text style={styles.textAreaBold}>{title}</Text>
+    <Text style={ {fontSize: 22} }>{content}</Text>
+  </View>
+};
 export default DetailScreen;
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#a0d1d7",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    advice: {
-      fontSize: 20,
-      fontWeight: "bold",
-      marginHorizontal: 20,
-    },
-    ImageBackground: {
-      flex: 1,
-      resizeMode: "cover",
-      width: "100%",
-      alignItems: "center",
-    },
-    SmallImage: {
-      width: 100,
-      height: 100,
-      start: 20,
-    },
-    TextArea : {
-      fontSize: 20,
-      paddingTop:10,
-      paddingBottom:10,
-      paddingLeft: 20,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "#a0d1d7",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  smallImage: {
+    width: 200,
+    height: 300,
+    paddingTop:20,
+    paddingBottom:20,
+  },
+  textAreaBold: {
+    fontSize: 22,
+    fontWeight: "bold"
+  },
 
-  });
+});
