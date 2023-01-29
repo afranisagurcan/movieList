@@ -3,7 +3,9 @@ import {
   Button,
   FlatList,
   Image,
+  RefreshControl,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -12,8 +14,19 @@ import {
 } from 'react-native';
 
 import axios from 'axios';
+
 function HomeScreen({navigation}) {
   const [movies, setMovies] = useState([]);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  }, []);
+
+
   const url = 'https://www.omdbapi.com/?s=avatar&apikey=263d22d8';
   useEffect ( () => {
     axios
@@ -28,7 +41,7 @@ function HomeScreen({navigation}) {
 
     <View  style={styles.container}>
       <Text>
-        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('Detail', {paramKey: imdbID}) }
+        <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('DETAIL', {paramKey: imdbID}) }
                              style={styles.mainCardView}>
           <View >
             <Image style={styles.smallImage} source={{uri: Poster}}/>
@@ -43,44 +56,49 @@ function HomeScreen({navigation}) {
   );
   return (
     <SafeAreaView >
-      <FlatList
-        key={'item-'}
-        data= {movies}
-        renderItem = { ({item})=>(
-          <>
-            <Item Title={item.Title} Year={item.Year}  imdbID={item.imdbID} Type={item.Type} Poster={item.Poster} />
-          </>
-        )}
-        keyExtractor={(item,index) => "item-"+index}
-        numColumns={numColumns}
-      />
+        <FlatList
+          key={'item-'}
+          data= {movies}
+          renderItem = { ({item})=>(
+            <>
+              <Item Title={item.Title} Year={item.Year}  imdbID={item.imdbID} Type={item.Type} Poster={item.Poster} />
+            </>
+          )}
+          keyExtractor={(item,index) => "item-"+index}
+          numColumns={2}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}
+                            tintColor="#fff"
+                            backgroundColor='#000'
+            />
+          }
+        />
+
     </SafeAreaView>
   );
 }
-const numColumns = 2 ;
 export default HomeScreen;
 
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: "#cec3bd",
+    backgroundColor: "#000",
     paddingHorizontal: 20,
     flexWrap: "wrap",
     flex:1,
   },
   mainCardView: {
-    height: 400,
+    height: 350,
     width: 170,
     paddingTop: 50,
-    backgroundColor: "#cec3bd",
+    backgroundColor: "#000",
     borderRadius: 15,
-    shadowColor: "#cec3bd",
+    shadowColor: "#000",
     shadowOpacity: 1,
     shadowRadius: 8,
     elevation: 8,
     flexDirection: 'row',
-    justifyContent:'space-between',
     marginTop: 6,
     marginBottom: 6,
     flexBasis: '50%',
@@ -92,16 +110,10 @@ const styles = StyleSheet.create({
 
   },
   textArea : {
-    fontSize: 20,
-    color:'#39729b',
-    /*
-    paddingTop:50,
-    paddingBottom:10,
-    paddingLeft: 20,
-     */
-    start:5,
-    flex: 1,
-    flexWrap: 'wrap'
+    fontSize: 16,
+    color:'#535359FF',
+    textAlign: 'center',
+
   },
 
 });

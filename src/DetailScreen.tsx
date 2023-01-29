@@ -61,7 +61,7 @@ function DetailScreen({ route }) {
 const ContentItem = ({title, content})=> {
   return  <View style={{ flexDirection: "column", paddingBottom: 16 }}>
     <Text style={styles.textAreaBold}>{title}</Text>
-    <Text style={ {fontSize: 22} }>{content}</Text>
+    <Text style={ {fontSize: 20 , color:'#535359FF'} }>{content}</Text>
   </View>
 };
 export default DetailScreen;
@@ -69,19 +69,18 @@ export default DetailScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#cec3bd",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center"
   },
   smallImage: {
-    width: 200,
-    height: 300,
-    paddingTop:20,
-    paddingBottom:20,
+    flex: 1,
+    aspectRatio: 1.5,
+    resizeMode: 'contain',
   },
   textAreaBold: {
-    fontSize: 22,
-    color:'#39729b',
+    fontSize: 20,
+    color:'#535359FF',
     fontWeight: "bold"
   },
 

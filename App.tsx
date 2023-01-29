@@ -15,36 +15,35 @@ import { SafeAreaView, StyleSheet, View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-
 function App(): JSX.Element {
 
 
   return (
     <>
-      <SafeAreaView style={{ flex: 0, backgroundColor: "#cec3bd" }} />
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#cec3bd" }}>
+      <SafeAreaView style={{ flex: 0, backgroundColor: "#000" }} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
 
             <NavigationContainer >
               <Stack.Navigator initialRouteName="Home" >
                 <Stack.Screen options={{
                   headerStyle: {
-                    backgroundColor: '#cec3bd',
+                    backgroundColor: '#000',
                   },
-                  headerTintColor: '#39729b',
+                  headerTintColor: '#535359',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
                 }}
                  name="MOVIES" component={HomeScreen} />
-                <Stack.Screen Screen options={{
+                <Stack.Screen options={{
                   headerStyle: {
-                    backgroundColor: '#cec3bd',
+                    backgroundColor: '#000',
                   },
-                  headerTintColor: '#39729b',
+                  headerTintColor: '#535359FF',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
-                }} name="Detail" component={DetailScreen} />
+                }} name="DETAIL" component={DetailScreen} />
               </Stack.Navigator>
             </NavigationContainer>
 
@@ -63,7 +62,7 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#a976c8",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },
