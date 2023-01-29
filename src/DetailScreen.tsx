@@ -28,7 +28,6 @@ function DetailScreen({ route }) {
   return (
 
     <View style={styles.container}>
-
       {movie &&
         <SafeAreaView>
           <ScrollView>
@@ -70,7 +69,7 @@ export default DetailScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#a0d1d7",
+    backgroundColor: "#cec3bd",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
   },
   textAreaBold: {
     fontSize: 22,
+    color:'#39729b',
     fontWeight: "bold"
   },
 

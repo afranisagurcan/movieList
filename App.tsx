@@ -21,16 +21,16 @@ function App(): JSX.Element {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 0, backgroundColor: "#251fea" }} />
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#a0d1d7" }}>
+      <SafeAreaView style={{ flex: 0, backgroundColor: "#cec3bd" }} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#cec3bd" }}>
 
             <NavigationContainer >
               <Stack.Navigator initialRouteName="Home" >
                 <Stack.Screen options={{
                   headerStyle: {
-                    backgroundColor: '#251fea',
+                    backgroundColor: '#cec3bd',
                   },
-                  headerTintColor: '#fff',
+                  headerTintColor: '#39729b',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
@@ -38,9 +38,9 @@ function App(): JSX.Element {
                  name="MOVIES" component={HomeScreen} />
                 <Stack.Screen Screen options={{
                   headerStyle: {
-                    backgroundColor: '#251fea',
+                    backgroundColor: '#cec3bd',
                   },
-                  headerTintColor: '#fff',
+                  headerTintColor: '#39729b',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
