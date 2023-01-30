@@ -29,7 +29,7 @@ function App(): JSX.Element {
                   headerStyle: {
                     backgroundColor: '#000',
                   },
-                  headerTintColor: '#535359',
+                  headerTintColor: '#989393',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
@@ -39,7 +39,7 @@ function App(): JSX.Element {
                   headerStyle: {
                     backgroundColor: '#000',
                   },
-                  headerTintColor: '#535359FF',
+                  headerTintColor: '#989393',
                   headerTitleStyle: {
                     fontWeight: 'bold',
                   },
@@ -57,7 +57,6 @@ function App(): JSX.Element {
 }
 
 export default App;
-
 
 const styles = StyleSheet.create({
   container: {

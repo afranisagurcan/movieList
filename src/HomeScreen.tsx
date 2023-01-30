@@ -27,7 +27,7 @@ function HomeScreen({navigation}) {
   }, []);
 
 
-  const url = 'https://www.omdbapi.com/?s=avatar&apikey=263d22d8';
+  const url = 'https://www.omdbapi.com/?s=star&apikey=263d22d8';
   useEffect ( () => {
     axios
       .get(url)
@@ -55,10 +55,10 @@ function HomeScreen({navigation}) {
     </View>
   );
   return (
-    <SafeAreaView >
+    <SafeAreaView style={{backgroundColor:'#000'}} >
         <FlatList
           key={'item-'}
-          data= {movies}
+          data={movies}
           renderItem = { ({item})=>(
             <>
               <Item Title={item.Title} Year={item.Year}  imdbID={item.imdbID} Type={item.Type} Poster={item.Poster} />
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   textArea : {
     fontSize: 16,
-    color:'#535359FF',
+    color:'#989393',
     textAlign: 'center',
 
   },
