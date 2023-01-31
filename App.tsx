@@ -17,7 +17,6 @@ const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
 
-
   return (
     <>
       <SafeAreaView style={{ flex: 0, backgroundColor: "#000" }} />

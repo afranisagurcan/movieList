@@ -13,11 +13,15 @@ import {
   View,
 } from 'react-native';
 
+
 import axios from 'axios';
+import StarRating from "../components/StarRating";
+
 
 function HomeScreen({navigation}) {
   const [movies, setMovies] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
+
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -47,6 +51,7 @@ function HomeScreen({navigation}) {
             <Image style={styles.smallImage} source={{uri: Poster}}/>
             <Text style={styles.textArea}>{Title}</Text>
 
+            <StarRating prop={imdbID} ></StarRating>
           </View>
 
         </TouchableOpacity>
@@ -72,7 +77,9 @@ function HomeScreen({navigation}) {
                             backgroundColor='#000'
             />
           }
+
         />
+
 
     </SafeAreaView>
   );
@@ -89,8 +96,8 @@ const styles = StyleSheet.create({
     flex:1,
   },
   mainCardView: {
-    height: 350,
-    width: 170,
+    height: '100%',
+    width: '50%',
     paddingTop: 50,
     backgroundColor: "#000",
     borderRadius: 15,
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color:'#989393',
     textAlign: 'center',
-
+    paddingVertical:20,
   },
 
 });

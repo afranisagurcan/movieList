@@ -56,7 +56,7 @@ function DetailScreen({ route }) {
             <View style={{ padding: 12 }}>
               <ContentItem title="Title" content={movie.Title}/>
               <ContentItem title="Released Date" content={movie.Year}/>
-              <ContentItem title="Genre" content={movie.Type}/>
+              <ContentItem title="Genre" content={movie.Genre}/>
               <ContentItem title="Actors" content={movie.Actors}/>
               <ContentItem title="Country" content={movie.Country}/>
               <ContentItem title="Plot" content={movie.Plot}/>
