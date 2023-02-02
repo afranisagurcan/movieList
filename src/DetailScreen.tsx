@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   Image, RefreshControl,
   SafeAreaView, ScrollView,
   StyleSheet,
@@ -9,8 +10,10 @@ import {
 } from "react-native";
 
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Rating from "../components/Rating";
 
-function DetailScreen({ route }) {
+function DetailScreen({ route }:any) {
   const [movie, setMovie] = useState(null);
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -39,11 +42,7 @@ function DetailScreen({ route }) {
     <SafeAreaView style={styles.container}>
       {movie &&
           <ScrollView refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}
-                            tintColor="#fff"
-                            backgroundColor='#000'
-            />
-          }>
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#fff" /> }>
 
             <View style={{
               width:"100%",
@@ -72,7 +71,7 @@ function DetailScreen({ route }) {
 
 }
 
-const ContentItem = ({title, content})=> {
+const ContentItem = ({title, content}:any)=> {
   return  <View style={{ flexDirection: "column", paddingBottom: 16 }}>
     <Text style={styles.textAreaBold}>{title}</Text>
     <Text style={ {fontSize: 20 , color:'#989393'} }>{content}</Text>
