@@ -8,16 +8,17 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import axios from 'axios';
 import Rating from '../components/Rating';
 
 function HomeScreen({navigation}:any) {
   const [movies, setMovies] = useState([]);
+  const [ids, setIds] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -44,10 +45,8 @@ function HomeScreen({navigation}:any) {
         console.log(error);
       });
   }, []);
-
-  const Item = ({Title, Year, imdbID, Type, Poster} : any) => (
+  const Item = ({Title, Year, imdbID, Poster} : any) => (
     <View style={styles.container}>
-      <Text>
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => navigation.navigate('DETAIL', {paramKey: imdbID})}
@@ -58,12 +57,15 @@ function HomeScreen({navigation}:any) {
             <Rating imdbID={imdbID} />
           </View>
         </TouchableOpacity>
-      </Text>
+
     </View>
   );
 
+
   return (
     <SafeAreaView style={{backgroundColor: '#000'}}>
+
+      <Button title={"FAVORITES"} onPress={() => navigation.navigate('FAVS', {paramKey: movies} ) }/>
       <FlatList
         data={movies}
         renderItem={({item}:any) => (
@@ -71,7 +73,6 @@ function HomeScreen({navigation}:any) {
             Title={item.Title}
             Year={item.Year}
             imdbID={item.imdbID}
-            Type={item.Type}
             Poster={item.Poster}
           />
         )}
@@ -82,7 +83,6 @@ function HomeScreen({navigation}:any) {
             refreshing={refreshing}
             onRefresh={onRefresh}
             tintColor="#fff"
-
           />
         }
       />
@@ -91,6 +91,7 @@ function HomeScreen({navigation}:any) {
 }
 
 export default HomeScreen;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
   },
   smallImage: {
     resizeMode: 'stretch',
-    width: 170,
+    width: 160,
     height: 250,
   },
   textArea: {
@@ -125,3 +126,16 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 });
+
+/*
+  <TextInput
+        style={{ fontSize: 16,
+          color: '#fff',
+          textAlign: 'center',
+          paddingVertical: 20,
+          fontWeight:'bold'
+        }}
+        placeholder="Search Here"
+      />
+
+ */

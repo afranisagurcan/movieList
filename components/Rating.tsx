@@ -2,13 +2,13 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
-function isNumeric(str:string) {
-  if (typeof str != "string") return false // we only process strings!
-  return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-    !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+
+function isNumeric(str: string) {
+  if (typeof str != 'string') return false;
+  return !isNaN(str) && !isNaN(parseFloat(str));
 }
 
-function Rating({imdbID}:any) {
+function Rating({imdbID}: any) {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function Rating({imdbID}:any) {
     axios
       .get(url)
       .then(response => {
-        if (isNumeric(response.data.imdbRating)){
+        if (isNumeric(response.data.imdbRating)) {
           setRating(response.data.imdbRating);
         }
       })
@@ -24,15 +24,15 @@ function Rating({imdbID}:any) {
         console.log(error);
       });
   }, [imdbID]);
-  if (rating){
+  if (rating) {
     const ratingInt = Number(rating) / 2;
     return (
       <View>
-        <StarRatingDisplay rating={ratingInt} starSize={22} color={'#989393'}/>
+        <StarRatingDisplay rating={ratingInt} starSize={22} color={'#989393'} />
       </View>
     );
   }
-  return <View/>
+  return <View />;
 }
 
 export default Rating;
