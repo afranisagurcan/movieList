@@ -17,10 +17,20 @@ import Rating from '../components/Rating';
 import AddFavorite from '../components/AddFavorite';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import type {RouteProp} from '@react-navigation/native';
+
+type ContentItemProps = {
+  title : string;
+  content : string;
+};
+/*
+type DetailScreenRouteProp = {
+  route: RouteProp<{params: {paramKey: string}}, 'params'>;
+}; */
+
 function DetailScreen({route}: any) {
   const [movie, setMovie] = useState(null);
   const [refreshing, setRefreshing] = React.useState(false);
-  const [checked, setChecked] = useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -59,6 +69,7 @@ function DetailScreen({route}: any) {
               flex: 1,
               flexDirection: 'row',
               justifyContent: 'center',
+              paddingTop: 50,
             }}>
             <Image style={styles.smallImage} source={{uri: movie.Poster}} />
           </View>
@@ -79,7 +90,7 @@ function DetailScreen({route}: any) {
   );
 }
 
-const ContentItem = ({title, content}: any) => {
+const ContentItem = ({title, content}: ContentItemProps) => {
   return (
     <View style={{flexDirection: 'column', paddingBottom: 16}}>
       <Text style={styles.textAreaBold}>{title}</Text>
@@ -93,13 +104,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   smallImage: {
     flex: 1,
     aspectRatio: 1.5,
     resizeMode: 'contain',
+
   },
   textAreaBold: {
     fontSize: 20,

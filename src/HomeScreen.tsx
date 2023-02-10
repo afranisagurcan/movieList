@@ -15,6 +15,20 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Rating from '../components/Rating';
+import {NavigationProp} from '@react-navigation/native';
+
+/*
+type HomeScreenNavigationProp = {
+  navigation : NavigationProp<'MOVIES'>;
+
+}; */
+
+type ItemProps = {
+  Title : string ;
+  Year : string ;
+  imdbID : string;
+  Poster : string ;
+};
 
 function HomeScreen({navigation}:any) {
   const [movies, setMovies] = useState([]);
@@ -45,7 +59,7 @@ function HomeScreen({navigation}:any) {
         console.log(error);
       });
   }, []);
-  const Item = ({Title, Year, imdbID, Poster} : any) => (
+  const Item = ({Title, Year, imdbID, Poster} : ItemProps) => (
     <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={1}

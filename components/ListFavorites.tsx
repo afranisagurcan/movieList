@@ -17,16 +17,25 @@ import {
 } from 'react-native';
 import Rating from "./Rating";
 
+type ListFavoritesProps = {
+  Title : string ;
+  Year : string ;
+  imdbID : string;
+  Poster : string ;
 
-function ListFavorites({Title,Year,imdbID,Poster}: any) {
+};
+
+function ListFavorites({Title,Year,imdbID,Poster}: ListFavoritesProps) {
   const [favorite, setFavorite] = useState(false);
   const { getItem, setItem } = useAsyncStorage('@favMovies');
 
   const readItemToStorage = () => {
     getItem().then(res => {
-      const favMovies = JSON.parse(res);
-      if (favMovies.includes(imdbID)) {
-        setFavorite(true);
+      if (res != null){
+        const favMovies = JSON.parse(res);
+        if (favMovies.includes(imdbID)) {
+          setFavorite(true);
+        }
       }
 
     })
@@ -41,12 +50,8 @@ function ListFavorites({Title,Year,imdbID,Poster}: any) {
     <View style={styles.container}>
       {
         favorite && (
-          <View
-          style={styles.mainCardView}>
-          <View>
+          <View style={styles.mainCardView}>
             <Image style={styles.smallImage} source={{uri: Poster}} />
-            <Text style={styles.textArea}>{Title}</Text>
-          </View>
         </View>
         )
       }
@@ -57,6 +62,7 @@ function ListFavorites({Title,Year,imdbID,Poster}: any) {
 
 
 const styles = StyleSheet.create({
+
   container: {
     flexDirection: 'row',
     backgroundColor: '#000',
@@ -66,17 +72,15 @@ const styles = StyleSheet.create({
   },
   mainCardView: {
     height: '100%',
-    width:'100%',
+    width: 150,
     paddingTop: 50,
     backgroundColor: '#000',
-    color:'#fff',
     shadowColor: '#000',
-    shadowOpacity: 1,
-    shadowRadius: 8,
-    elevation: 8,
     flexDirection: 'row',
     marginTop: 6,
     marginBottom: 6,
+
+    textAlign:'center',
   },
   smallImage: {
     resizeMode: 'stretch',
@@ -87,6 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#989393',
     textAlign:'auto',
+    paddingLeft:20,
     paddingVertical: 20,
   },
 });

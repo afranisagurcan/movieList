@@ -3,12 +3,21 @@ import AddFavorite from "../components/AddFavorite";
 import { FlatList, Image, RefreshControl, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Rating from "../components/Rating";
 import ListFavorites from "../components/ListFavorites";
+import { RouteProp } from "@react-navigation/native";
+
+
+type ItemProps = {
+  Title : string ;
+  Year : string ;
+  imdbID : string;
+  Poster : string ;
+};
 
 function FavoriteScreen({route}:any){
 
   const movies = route.params.paramKey;
 
-  const Item = ({Title, Year, imdbID, Poster} : any) => (
+  const Item = ({Title, Year, imdbID, Poster} : ItemProps) => (
     <View style={styles.container}>
       <Text>
         <ListFavorites Title={Title} Year={Year} imdbID={imdbID} Poster={Poster}></ListFavorites>
@@ -29,6 +38,7 @@ function FavoriteScreen({route}:any){
             Poster={item.Poster}
           />
         )}
+
       >
 
       </FlatList>

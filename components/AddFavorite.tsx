@@ -63,10 +63,26 @@ function AddFavorite({imdbID}: FavoritesProps) {
     <View style={{margin: 40}}>
       <TouchableOpacity
         onPress={writeItemToStorage}>
-        <Icon name={iconName} size={30} color='red' />
+        <Icon name={iconName} size={30} style={styles.heart}  />
       </TouchableOpacity>
     </View>
   );
 }
 
 export default AddFavorite;
+
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    backgroundColor: '#000',
+    paddingHorizontal: 20,
+    flexWrap:'wrap',
+    flex: 1,
+  },
+  heart :  {
+    color:'red',
+    paddingLeft:125,
+  }
+
+});

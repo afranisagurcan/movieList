@@ -4,11 +4,14 @@ import {Text, View} from 'react-native';
 import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
 
 function isNumeric(str: string) {
-  if (typeof str != 'string') return false;
-  return !isNaN(str) && !isNaN(parseFloat(str));
+  return !Number.isNaN(Number(str)) && !Number.isNaN(parseFloat(str));
 }
 
-function Rating({imdbID}: any) {
+type RatingProps = {
+  imdbID: string;
+};
+
+function Rating({imdbID} : RatingProps) {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
