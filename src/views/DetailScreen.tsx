@@ -1,49 +1,45 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Button,
   Image,
   RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   View,
 } from 'react-native';
 
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Rating from '../components/Rating';
 import AddFavorite from '../components/AddFavorite';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {DETAIL_URL} from '../utils';
+import { useRoute } from "@react-navigation/native";
+import IMovie from "../utils/types/Movie.type";
+import IDetailMovie from "../utils/types/DetailMovie.type";
 
-import type {RouteProp} from '@react-navigation/native';
+function DetailScreen() {
 
-type ContentItemProps = {
-  title : string;
-  content : string;
-};
-/*
-type DetailScreenRouteProp = {
-  route: RouteProp<{params: {paramKey: string}}, 'params'>;
-}; */
-
-function DetailScreen({route}: any) {
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState<IMovie.Item | null>(null);
   const [refreshing, setRefreshing] = React.useState(false);
+
+  const route = useRoute<any>();
+  const imdbID = route.params.paramKey;
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 500);
+    axios
+      .get(DETAIL_URL(imdbID))
+      .then(response => {
+        setMovie(response.data);
+        setRefreshing(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }, []);
 
-  const imdbID = route.params.paramKey;
-  const url = 'https://www.omdbapi.com/?i=' + imdbID + '&apikey=263d22d8';
   useEffect(() => {
     axios
-      .get(url)
+      .get(DETAIL_URL(imdbID))
       .then(response => {
         setMovie(response.data);
       })
@@ -63,14 +59,7 @@ function DetailScreen({route}: any) {
               tintColor="#fff"
             />
           }>
-          <View
-            style={{
-              width: '100%',
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              paddingTop: 50,
-            }}>
+          <View style={styles.imageCard}>
             <Image style={styles.smallImage} source={{uri: movie.Poster}} />
           </View>
           <View style={{padding: 12}}>
@@ -90,7 +79,7 @@ function DetailScreen({route}: any) {
   );
 }
 
-const ContentItem = ({title, content}: ContentItemProps) => {
+const ContentItem = ({title, content}: IDetailMovie.ContentItem) => {
   return (
     <View style={{flexDirection: 'column', paddingBottom: 16}}>
       <Text style={styles.textAreaBold}>{title}</Text>
@@ -105,11 +94,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
+  imageCard: {
+    width: '100%',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 50,
+  },
   smallImage: {
     flex: 1,
     aspectRatio: 1.5,
     resizeMode: 'contain',
-
   },
   textAreaBold: {
     fontSize: 20,

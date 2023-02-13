@@ -1,7 +1,9 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
-import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { StarRatingDisplay } from 'react-native-star-rating-widget';
+import IDetailMovie from "../utils/types/DetailMovie.type";
+import { DETAIL_URL } from "../utils";
 
 function isNumeric(str: string) {
   return !Number.isNaN(Number(str)) && !Number.isNaN(parseFloat(str));
@@ -11,13 +13,13 @@ type RatingProps = {
   imdbID: string;
 };
 
-function Rating({imdbID} : RatingProps) {
+function Rating({ imdbID }: IDetailMovie.KeyItem) {
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
-    const url = 'https://www.omdbapi.com/?i=' + imdbID + '&apikey=263d22d8';
+
     axios
-      .get(url)
+      .get(DETAIL_URL(imdbID))
       .then(response => {
         if (isNumeric(response.data.imdbRating)) {
           setRating(response.data.imdbRating);
@@ -27,6 +29,7 @@ function Rating({imdbID} : RatingProps) {
         console.log(error);
       });
   }, [imdbID]);
+
   if (rating) {
     const ratingInt = Number(rating) / 2;
     return (

@@ -5,15 +5,13 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
-import {StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from './src/HomeScreen';
-import DetailScreen from './src/DetailScreen';
-import AddFavorite from "./components/AddFavorite";
-import FavoriteScreen from './src/FavoriteScreen';
+import HomeScreen from "./src/views/HomeScreen";
+import DetailScreen from './src/views/DetailScreen';
+import FavoriteScreen from './src/views/FavoriteScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,16 +32,18 @@ function App(): JSX.Element {
           name="MOVIES"
           component={HomeScreen}
         />
-        <Stack.Screen options={{
-          headerStyle: {
-            backgroundColor: '#000',
-          },
-          headerTintColor: '#989393',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-        name="FAVS" component={FavoriteScreen} />
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: '#000',
+            },
+            headerTintColor: '#989393',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+          name="FAVS"
+          component={FavoriteScreen} />
         <Stack.Screen
           options={{
             headerStyle: {
@@ -64,11 +64,3 @@ function App(): JSX.Element {
 
 export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

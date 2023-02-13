@@ -5,27 +5,14 @@ import AsyncStorage, {
 } from '@react-native-async-storage/async-storage';
 import {
   Button,
-  Image,
-  RefreshControl,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
-  Text,
-  TouchableHighlight,
   View,
 } from 'react-native';
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IDetailMovie from "../utils/types/DetailMovie.type";
 
-
-type FavoritesProps = {
-  imdbID: string;
-
-};
-
-function AddFavorite({imdbID}: FavoritesProps) {
+function AddFavorite({imdbID}: IDetailMovie.KeyItem) {
   const [favorite, setFavorite] = useState(false);
-  const [iconName,setIconName] = useState("heart-o");
   const {getItem, setItem} = useAsyncStorage('@favMovies');
 
   const writeItemToStorage = () => {
@@ -36,7 +23,6 @@ function AddFavorite({imdbID}: FavoritesProps) {
       } else {
         const favMovies = JSON.parse(res);
         if (!favMovies.includes(imdbID)) {
-
           setItem(JSON.stringify([...favMovies, imdbID]))
             .then(() => {
               setFavorite(true);
@@ -45,44 +31,49 @@ function AddFavorite({imdbID}: FavoritesProps) {
         }
       }
     });
-
-    if (favorite)
-      setIconName('heart');
   };
 
   useEffect(() => {
     getItem().then(res => {
       if (res != null && JSON.parse(res)?.includes(imdbID)) {
         setFavorite(true);
-        setIconName('heart');
       }
     });
   }, []);
 
   return (
-    <View style={{margin: 40}}>
-      <TouchableOpacity
-        onPress={writeItemToStorage}>
-        <Icon name={iconName} size={30} style={styles.heart}  />
-      </TouchableOpacity>
+    <View>
+      {!favorite && (
+        <View style={styles.container}>
+          <Icon.Button
+            onPress={writeItemToStorage}
+            name={'plus'}
+            color={'#000'}
+            backgroundColor={'#989393'}>
+            Add To Favorites
+          </Icon.Button>
+        </View>
+      )}
+
+      {favorite && (
+        <View style={styles.container}>
+          <Icon.Button
+            name={'check'}
+            color={'#000'}
+            backgroundColor={'#989393'}>
+            Added To Favorites
+          </Icon.Button>
+        </View>
+      )}
     </View>
   );
 }
 
 export default AddFavorite;
 
-
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: '#000',
-    paddingHorizontal: 20,
-    flexWrap:'wrap',
-    flex: 1,
+    margin: 40,
+    alignItems: 'center',
   },
-  heart :  {
-    color:'red',
-    paddingLeft:125,
-  }
-
 });
