@@ -9,7 +9,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from "./src/views/HomeScreen";
+import HomeScreen from './src/views/HomeScreen';
 import DetailScreen from './src/views/DetailScreen';
 import FavoriteScreen from './src/views/FavoriteScreen';
 

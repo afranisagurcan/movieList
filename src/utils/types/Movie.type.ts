@@ -18,7 +18,5 @@ declare namespace IMovie {
     imdbID: string;
     Year: string;
   }
-
-
 }
 export default IMovie;

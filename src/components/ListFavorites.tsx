@@ -1,15 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { DETAIL_URL } from '../utils';
 import IMovie from '../utils/types/Movie.type';
-import IDetailMovie from "../utils/types/DetailMovie.type";
+import IDetailMovie from '../utils/types/DetailMovie.type';
 
 const ListFavorites: FC<IDetailMovie.KeyItem> = ({ imdbID }) => {
   const [movie, setMovie] = useState<IMovie.Item | null>(null);
-  const { getItem, setItem } = useAsyncStorage('@favMovies');
   const navigation = useNavigation<any>();
 
   useEffect(() => {

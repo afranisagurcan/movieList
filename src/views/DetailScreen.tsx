@@ -10,14 +10,13 @@ import {
 } from 'react-native';
 
 import axios from 'axios';
-import AddFavorite from '../components/AddFavorite';
-import {DETAIL_URL} from '../utils';
-import { useRoute } from "@react-navigation/native";
-import IMovie from "../utils/types/Movie.type";
-import IDetailMovie from "../utils/types/DetailMovie.type";
+import { DETAIL_URL, GENERAL_URL } from "../utils";
+import {useRoute} from '@react-navigation/native';
+import IMovie from '../utils/types/Movie.type';
+import IDetailMovie from '../utils/types/DetailMovie.type';
+import StatusFavorite from '../components/StatusFavorite';
 
 function DetailScreen() {
-
   const [movie, setMovie] = useState<IMovie.Item | null>(null);
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -35,6 +34,7 @@ function DetailScreen() {
       .catch(error => {
         console.log(error);
       });
+
   }, []);
 
   useEffect(() => {
@@ -42,11 +42,13 @@ function DetailScreen() {
       .get(DETAIL_URL(imdbID))
       .then(response => {
         setMovie(response.data);
+        setRefreshing(false);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,7 +65,7 @@ function DetailScreen() {
             <Image style={styles.smallImage} source={{uri: movie.Poster}} />
           </View>
           <View style={{padding: 12}}>
-            <AddFavorite imdbID={movie.imdbID} />
+            <StatusFavorite imdbID={imdbID} />
             <ContentItem title="Title" content={movie.Title} />
             <ContentItem title="Released Date" content={movie.Year} />
             <ContentItem title="Genre" content={movie.Genre} />
@@ -87,6 +89,7 @@ const ContentItem = ({title, content}: IDetailMovie.ContentItem) => {
     </View>
   );
 };
+
 export default DetailScreen;
 
 const styles = StyleSheet.create({

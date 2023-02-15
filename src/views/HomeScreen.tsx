@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -11,8 +11,8 @@ import {
 import axios from 'axios';
 import Rating from '../components/Rating';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useNavigation} from '@react-navigation/native';
-import {GENERAL_URL} from '../utils';
+import { useNavigation } from '@react-navigation/native';
+import { GENERAL_URL } from '../utils';
 import IMovie from '../utils/types/Movie.type';
 
 function HomeScreen() {
@@ -45,14 +45,14 @@ function HomeScreen() {
       });
   }, []);
 
-  const Item = ({Title, imdbID, Poster}: IMovie.GeneralItem ) => (
+  const Item = ({ Title, imdbID, Poster }: IMovie.GeneralItem) => (
     <View>
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => navigation.navigate('DETAIL', {paramKey: imdbID})}
+        onPress={() => navigation.navigate('DETAIL', { paramKey: imdbID })}
         style={styles.mainCardView}>
         <View>
-          <Image style={styles.smallImage} source={{uri: Poster}} />
+          <Image style={styles.smallImage} source={{ uri: Poster }} />
           <Text style={styles.textArea}>{Title}</Text>
           <Rating imdbID={imdbID} />
         </View>
@@ -61,20 +61,20 @@ function HomeScreen() {
   );
 
   return (
-    <View style={{backgroundColor: '#000'}}>
+    <View style={{ backgroundColor: '#000' }}>
       <View style={styles.favoriteButton}>
         <Icon.Button
           name={'heart'}
           color={'#000'}
           backgroundColor={'#989393'}
-          onPress={() => navigation.navigate('FAVS', {paramKey: movies})}>
+          onPress={() => navigation.navigate('FAVS', { paramKey: movies })}>
           FAVORITES
         </Icon.Button>
       </View>
 
       <FlatList
         data={movies}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <Item
             Title={item.Title}
             Year={item.Year}
@@ -83,7 +83,7 @@ function HomeScreen() {
           />
         )}
         keyExtractor={(item, index) => 'item-' + index}
-        numColumns={2}
+        numColumns={3}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -100,30 +100,30 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   mainCardView: {
-    height: '100%',
-    width: '50%',
+    height: "100%",
+    width: "50%",
     paddingTop: 50,
     paddingHorizontal: 20,
-    backgroundColor: '#000',
-    flexDirection: 'row',
-    flex: 1,
+    backgroundColor: "#000",
+    flexDirection: "row",
+    flex: 1
   },
   favoriteButton: {
-    width: '50%',
+    width: "50%",
     paddingTop: 20,
     paddingBottom: 20,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
+    alignSelf: "flex-end",
+    alignItems: "center"
   },
   smallImage: {
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
     width: 160,
-    height: 250,
+    height: 250
   },
   textArea: {
     fontSize: 16,
-    color: '#989393',
-    textAlign: 'center',
-    paddingVertical: 20,
-  },
+    color: "#989393",
+    textAlign: "center",
+    paddingVertical: 20
+  }
 });

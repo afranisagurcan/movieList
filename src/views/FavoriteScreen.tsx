@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import ListFavorites from "../components/ListFavorites";
+import { FlatList } from 'react-native';
+import ListFavorites from '../components/ListFavorites';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-
 
 function FavoriteScreen() {
   const [favorites, setFavorites] = useState([]);
-  const { getItem} = useAsyncStorage('@favMovies');
+  const { getItem } = useAsyncStorage('@favMovies');
 
   useEffect(() => {
     getItem().then(res => {
@@ -15,28 +14,16 @@ function FavoriteScreen() {
         setFavorites(favMovies);
       }
     });
-  }, []);
+  }, [favorites]);
 
   return (
     <FlatList
-      style={styles.flatList}
-      contentContainerStyle={styles.container}
+      style={{ backgroundColor: '#000', paddingVertical: 16 }}
       data={favorites}
-      renderItem={({ item }) => (
-        <ListFavorites
-          imdbID={item}
-        />
-      )}
-      numColumns={2} />
+      renderItem={({ item }) => <ListFavorites imdbID={item} />}
+      numColumns={2}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  flatList: {
-    backgroundColor: "#000",
-    paddingVertical: 16
-  },
-  container: {}
-});
 
 export default FavoriteScreen;

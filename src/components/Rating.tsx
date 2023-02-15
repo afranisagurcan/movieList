@@ -2,16 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
-import IDetailMovie from "../utils/types/DetailMovie.type";
-import { DETAIL_URL } from "../utils";
+import IDetailMovie from '../utils/types/DetailMovie.type';
+import { DETAIL_URL } from '../utils';
 
 function isNumeric(str: string) {
   return !Number.isNaN(Number(str)) && !Number.isNaN(parseFloat(str));
 }
-
-type RatingProps = {
-  imdbID: string;
-};
 
 function Rating({ imdbID }: IDetailMovie.KeyItem) {
   const [rating, setRating] = useState(0);
