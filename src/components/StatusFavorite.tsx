@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import IDetailMovie from '../utils/types/DetailMovie.type';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { StyleSheet, View } from 'react-native';
+import {BLACK, GREY} from '../utils';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function StatusFavorite({ imdbID }: IDetailMovie.KeyItem) {
@@ -59,6 +60,11 @@ function StatusFavorite({ imdbID }: IDetailMovie.KeyItem) {
       }
     });
   };
+  /*
+
+   */
+
+
   return (
     <View>
       {favorite && (
@@ -66,8 +72,8 @@ function StatusFavorite({ imdbID }: IDetailMovie.KeyItem) {
           <Icon.Button
             onPress={handleRemoveFavorite}
             name={'minus'}
-            color={'#000'}
-            backgroundColor={'#989393'}>
+            color={BLACK}
+            backgroundColor={GREY}>
             Remove From Favorites
           </Icon.Button>
         </View>
@@ -77,10 +83,11 @@ function StatusFavorite({ imdbID }: IDetailMovie.KeyItem) {
           <Icon.Button
             onPress={handleAddToFavorite}
             name={'plus'}
-            color={'#000'}
-            backgroundColor={'#989393'}>
+            color={BLACK}
+            backgroundColor={GREY}>
             Add To Favorites
           </Icon.Button>
+
         </View>
       )}
     </View>

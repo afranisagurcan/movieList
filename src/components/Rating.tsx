@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import IDetailMovie from '../utils/types/DetailMovie.type';
-import { DETAIL_URL } from '../utils';
+import { DETAIL_URL, GREY } from "../utils";
 
 function isNumeric(str: string) {
   return !Number.isNaN(Number(str)) && !Number.isNaN(parseFloat(str));
@@ -30,7 +30,7 @@ function Rating({ imdbID }: IDetailMovie.KeyItem) {
     const ratingInt = Number(rating) / 2;
     return (
       <View>
-        <StarRatingDisplay rating={ratingInt} starSize={22} color={'#989393'} />
+        <StarRatingDisplay rating={ratingInt} starSize={22} color={GREY} />
       </View>
     );
   }

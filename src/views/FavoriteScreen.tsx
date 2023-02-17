@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import ListFavorites from '../components/ListFavorites';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import {BLACK} from '../utils';
 
 function FavoriteScreen() {
   const [favorites, setFavorites] = useState([]);
@@ -18,7 +19,7 @@ function FavoriteScreen() {
 
   return (
     <FlatList
-      style={{ backgroundColor: '#000', paddingVertical: 16 }}
+      style={{ backgroundColor: BLACK, paddingVertical: 16 }}
       data={favorites}
       renderItem={({ item }) => <ListFavorites imdbID={item} />}
       numColumns={2}

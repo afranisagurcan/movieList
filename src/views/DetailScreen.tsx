@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import axios from 'axios';
-import { DETAIL_URL, GENERAL_URL } from "../utils";
+import {BLACK, DETAIL_URL, GENERAL_URL, GREY, WHITE} from '../utils';
 import {useRoute} from '@react-navigation/native';
 import IMovie from '../utils/types/Movie.type';
 import IDetailMovie from '../utils/types/DetailMovie.type';
@@ -58,7 +58,7 @@ function DetailScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onRefresh}
-              tintColor="#fff"
+              tintColor={WHITE}
             />
           }>
           <View style={styles.imageCard}>
@@ -95,7 +95,7 @@ export default DetailScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: BLACK,
   },
   imageCard: {
     width: '100%',
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   textAreaBold: {
     fontSize: 20,
-    color: '#989393',
+    color: GREY,
     fontWeight: 'bold',
   },
 });

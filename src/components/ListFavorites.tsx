@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import { DETAIL_URL } from '../utils';
+import { BLACK, DETAIL_URL } from "../utils";
 import IMovie from '../utils/types/Movie.type';
 import IDetailMovie from '../utils/types/DetailMovie.type';
 
@@ -43,7 +43,7 @@ const ListFavorites: FC<IDetailMovie.KeyItem> = ({ imdbID }) => {
 
 const styles = StyleSheet.create({
   mainCardView: {
-    shadowColor: '#000',
+    shadowColor: BLACK,
     width: '50%',
     paddingBottom: 16,
   },

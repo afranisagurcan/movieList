@@ -12,6 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/views/HomeScreen';
 import DetailScreen from './src/views/DetailScreen';
 import FavoriteScreen from './src/views/FavoriteScreen';
+import {BLACK, GREY} from './src/utils';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,9 +23,9 @@ function App(): JSX.Element {
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: '#000',
+              backgroundColor: BLACK,
             },
-            headerTintColor: '#989393',
+            headerTintColor: GREY,
             headerTitleStyle: {
               fontWeight: 'bold',
             },
@@ -35,9 +36,9 @@ function App(): JSX.Element {
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: '#000',
+              backgroundColor: BLACK,
             },
-            headerTintColor: '#989393',
+            headerTintColor: GREY,
             headerTitleStyle: {
               fontWeight: 'bold',
             },
@@ -47,9 +48,9 @@ function App(): JSX.Element {
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: '#000',
+              backgroundColor: BLACK,
             },
-            headerTintColor: '#989393',
+            headerTintColor: GREY,
             headerTitleStyle: {
               fontWeight: 'bold',
             },
