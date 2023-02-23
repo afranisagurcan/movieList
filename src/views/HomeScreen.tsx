@@ -1,35 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
-  Button,
   FlatList,
-  Image,
+  Image, Platform,
+  RefreshControl,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 import axios from 'axios';
 import Rating from '../components/Rating';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
-import { BLACK, GENERAL_URL, GREY } from "../utils";
+import {BLACK, GENERAL_URL, GREY, WHITE} from '../utils';
 import IMovie from '../utils/types/Movie.type';
 
-function HomeScreen(this: any) {
+function HomeScreen() {
   const [text, setText] = useState('');
   const [movies, setMovies] = useState<IMovie.GeneralItem[]>([]);
-  //const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+
   const navigation = useNavigation<any>();
-
-  /*const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    sendRequest(text, setMovies);
-  }, []);*/
-
-  useEffect(() => {
-    sendRequest(text, setMovies);
-  }, []);
 
   const Item = ({Title, imdbID, Poster}: IMovie.GeneralItem) => (
     <View>
@@ -49,30 +41,33 @@ function HomeScreen(this: any) {
     return <Text style={styles.emptyList}>Please search a movie</Text>;
   };
 
+  const sendRequest = () => {
+    axios
+      .get(GENERAL_URL(text))
+      .then(response => {
+        setMovies(response.data.Search);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    sendRequest();
+  }, []);
+
   return (
     <View style={{backgroundColor: BLACK}}>
       <View style={styles.searchArea}>
-
         <TextInput
           style={styles.searchText}
           value={text}
-          onChangeText={newValue => {
-            setText(newValue);
-          }}
+          onChangeText={newValue => setText(newValue)}
           placeholder="Search Here"
-        >
-          <Icon
-            name={'search'}
-            style={styles.searchArea}
-            color={GREY}></Icon>
-        </TextInput>
-        <View style={styles.searchButton}>
-          <TouchableOpacity
-            onPress={() => sendRequest(text, setMovies)}
-          >
-            <Text style={styles.searchButton}>Search</Text>
-          </TouchableOpacity>
-        </View>
+        />
+        <TouchableOpacity onPress = {()=>(sendRequest())}>
+          <Text style={styles.searchButton}>SEARCH</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.favoriteButton}>
@@ -104,24 +99,12 @@ function HomeScreen(this: any) {
         keyExtractor={(item, index) => 'item-' + index}
         numColumns={2}
         ListEmptyComponent={EmptyListMessage}
-        //refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor=WHITE />}
       />
     </View>
   );
 }
 
 export default HomeScreen;
-
-function sendRequest(text: string, setMovies: Function) {
-  axios
-    .get(GENERAL_URL(text))
-    .then(response => {
-      setMovies(response.data.Search);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
 
 const styles = StyleSheet.create({
   mainCardView: {
@@ -134,9 +117,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   favoriteButton: {
-    width: '40%',
+    width: '40%' ,
     paddingTop: 20,
     paddingBottom: 20,
+    paddingRight:  (Platform.OS == 'ios') ? 0 : 15,
     alignSelf: 'flex-end',
   },
   smallImage: {
@@ -161,14 +145,14 @@ const styles = StyleSheet.create({
     backgroundColor: GREY,
     color: BLACK,
     padding: 20,
-    borderBottomStartRadius: 15,
-    borderTopRightRadius:15,
+    borderBottomLeftRadius:15,
+    borderTopRightRadius: 15,
   },
   searchButton: {
-    textAlign:'center',
-    padding:8,
-    color:GREY,
-    fontWeight:'bold',
+    textAlign: 'center',
+    padding: 20,
+    color: GREY,
+    fontWeight: 'bold',
     fontSize: 18,
   },
   emptyList: {
@@ -180,3 +164,4 @@ const styles = StyleSheet.create({
     color: GREY,
   },
 });
+

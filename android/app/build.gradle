@@ -1,6 +1,17 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+project.ext.vectoricons = [
+        iconFontsDir: "../../../../node_modules/react-native-vector-icons/Fonts",
+        iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ,'AntDesign.ttf', 'FontAwesome5_Regular.ttf'
+                         ,'Entypo.ttf' , 'Feather.ttf' , 'FontAwesome.ttf','FontAwesome5_Brands.ttf',
+                         'FontAwesome5_Solid.ttf' , 'Foundation.ttf' , 'Ionicons.ttf' , 'MaterialCommunityIcons.ttf',
+                         'SimpleLineIcons.ttf', 'Octicons.ttf' , 'Zocial.ttf' ,'Fontisto.ttf'
+        ] ]
+
+
 import com.android.build.OutputFile
 
 /**
